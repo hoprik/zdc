@@ -1,36 +1,20 @@
-var data;
-$(document).ready(function(){
-    data = "name"
-    $.ajax({
-        type: "GET",
-        url: "/php/profile.php",
-        data: {data: data}
-      }).done(function( data ) {
-          $('.name').text(data)
-          $('head').append('<title>профиль: '+data+'</title>')
-      });
-      data = "surname"
-      $.ajax({
-          type: "GET",
-          url: "/php/profile.php",
-          data: {data: data}
-        }).done(function( data ) {
-            $('.surname').text(data)
-        });
-        data = "status"
-        $.ajax({
-            type: "GET",
-            url: "/php/profile.php",
-            data: {data: data}
-        }).done(function( data ) {
-            $('.status').text(data)
-        });
-        data = "avatar"
-        $.ajax({
-            type: "GET",
-            url: "/php/profile.php",
-            data: {data: data}
-          }).done(function( data ) {
-              $('body').append('<img src="'+data+'" width="100" height="100">')
-          });
-})
+import {ajax} from "./modul/ajax.js";
+
+let data;
+data = "name"
+ajax("/php/profile.php", "GET", {data: data}).then(data=>{
+    document.querySelector('.name').innerHTML = data
+    document.querySelector('head').insertAdjacentHTML("afterend",'<title>профиль: '+data+'</title>')
+})   
+data = "surname"
+ajax("/php/profile.php", "GET", {data: data}).then(data=>{
+    document.querySelector('.surname').innerHTML = data
+})   
+data = "status"
+ajax("/php/profile.php", "GET", {data: data}).then(data=>{
+    document.querySelector('.status').innerHTML = data
+})   
+data = "avatar"
+ajax("/php/profile.php", "GET", {data: data}).then(data=>{
+    document.querySelector('body').insertAdjacentHTML("afterbegin",'<img src="'+data+'" width="100" height="100">')
+})   

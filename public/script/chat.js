@@ -1,34 +1,21 @@
-$(document).ready(function(){
-    $.ajax({
-        type: "GET",
-        url: "/php/chat_read.php"
-    }).done(function(data){
-        $(".chat").html(data)
+import {ajax} from "./modul/ajax.js"
+ajax("/php/chat_read.php", "GET").then(data=>{
+    document.querySelector(".chat").innerHTML = data;
+})
+function reset_chat(){
+    ajax("/php/chat_read.php", "GET").then(data=>{
+        document.querySelector(".chat").innerHTML = data;
     })
-
-    function reset_chat(){
-        $.ajax({
-            type: "GET",
-            url: "/php/chat_read.php"
-        }).done(function(data){
-            $(".chat").html(data)
-        })
-        setTimeout(reset_chat, 1)
-    }
-
     setTimeout(reset_chat, 100)
+}
+setTimeout(reset_chat, 100)
 
-    $(".message_send").on("click", function(){
-        var message = $(".message").val()    
-        if(message != ""){
-            if(message !=" "){
-                $.ajax({
-                    type: "GET",
-                    url: "/php/chat_send.php",
-                    data: {text:message}
-                })
-            }
+document.querySelector(".message_send").addEventListener("click", ()=>{
+    let message = document.querySelector(".message");   
+    if(message.value != ""){
+        if(message.value !=" "){
+            ajax("/php/chat_send.php", "GET", {text:message.value})
         }
-        $(".message").val('')
-    })
+    }
+    message.value="";
 })

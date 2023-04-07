@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <body>
+        <p class="one"></p>
+        <input type="text">
+        <button class="g">тык</button>
+    </body>
+</body>
+    <script type="module">
+        import {ajax} from "/script/modul/ajax.js"
+        document.querySelector("button").addEventListener("click", (e)=>{
+            ajax("/php/test.php", "GET", {password:document.querySelector("input").value}).then(data=>console.log(data))});
+    </script>
+</html>

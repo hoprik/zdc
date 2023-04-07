@@ -1,39 +1,35 @@
-$(document).ready(function(){
-    // $.ajax({
-    //     type: "GET",
-    //     url: "/php/system_login.php",
-    //   }).done(function( data ) {
-    //     if (data == 0){
-    //     }
-    //     if(data == 1){
-    //         window.location.href = "/html/news.html"
-    //     }
-    //   });
-    $(".log").on("click", function(){
-        var login = $(".login").val();
-        var password = $(".password").val();
-        if (login == ""){
+import {ajax} from "./modul/ajax.mjs";
+
+ajax("/servScripts/system_login.mjs", "GET").then(data=>{
+    if (data == 0){
+       console.log("хуй тебе, а не вход");
+    }
+    if(data == 1){
+        window.location.href = "/html/login.html"
+    }
+});
+
+document.querySelector(".log").addEventListener("click",()=>{
+    let login = document.querySelector(".login").value;
+    let password = document.querySelector(".password").value;
+    if (login == ""){
+    }
+    else{
+        if (password == ""){
         }
         else{
-            if (password == ""){
-            }
-            else{
-                $.ajax({
-                    type: "GET",
-                    url: "/php/login.php",
-                    data: {user: login, password:password}
-                  }).done(function( data ) {
+                ajax("/php/login.php", "GET", {user: login, password:password}).then(data=>{
                     if (data == 0){
                         alert("неправильный логин или пароль");
                     }
                     if(data == 1){
+                        localStorage.setItem("login", login)
                         window.location.href = "/html/news.html"
                     }
-                  });
-            }
+                });
         }
-        $(".login").val("")
-        $(".password").val("")
-            
-    });
+    }
+    document.querySelector(".login").value = ""
+    document.querySelector(".password").value = ""
+        
 });

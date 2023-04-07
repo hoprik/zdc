@@ -1,76 +1,70 @@
-var name
-var sb_name
-var login
-var password
-var re_password
-var key
-var random = Math.random() * 1000000
-random_key = Math.round(random)
-var state = 1;
+import {ajax} from "./modul/ajax.mjs";
 
-$(document).ready(function(){
-    $(".continued").on("click",function(){
+let name
+let sb_name
+let login
+let password
+let re_password
+let key
+let random = Math.random() * 1000000
+let random_key = Math.round(random)
+let state = 1;
 
-        if (state == 1){
-            login = $('.login').val()
-            sb_name = $('.sbname').val()
-            name = $('.name').val()
+document.querySelector(".continued").addEventListener("click",()=>{
 
-            if(login == ''){
+    if (state == 1){
+        login = document.querySelector('.login').value
+        sb_name = document.querySelector('.sbname').value
+        name = document.querySelector('.name').value
+
+        if(login == ''){
+        }
+        else{
+            if(name == ''){
             }
             else{
-                if(name == ''){
+                if(sb_name == ''){
                 }
                 else{
-                    if(sb_name == ''){
-                    }
-                    else{
-                        $.ajax({
-                            type: "GET",
-                            url: "/php/cheak_email.php",
-                            data: {email:login}
-                          }).done(function( data ) {
-                            if (data == 0){
-                                alert("такое email уже есть");
-                            }
-                            if(data == 1){
-                                $("input").remove()
-                                $("body").append('<input type="password" class="password" placeholder="пароль">')
-                                $("body").append('<input type="password" class="re_password" placeholder="потверждения пароля">')
-                                $("body").append('<input type="text" class="key" placeholder="код с почты">')
-                                $.ajax({
-                                    type: "GET",
-                                    url: "/php/mail.php",
-                                    data: {password:random_key, email:login, name:name}
-                                })
-                                state += 1;
-                            }
-                          });
-                    }
+                    // ajax("/php/cheak_email.php", "GET", {email:login}).then(data=>{
+                    //     if (data == 0){
+                    //         alert("такое email уже есть");
+                    //     }
+                    //     if(data == 1){
+                    //         document.querySelectorAll("input").forEach((e)=>{e.remove()})
+                    //         document.querySelector("body").insertAdjacentHTML("beforeend",'<input type="password" class="password" placeholder="пароль">')
+                    //         document.querySelector("body").insertAdjacentHTML("beforeend",'<input type="password" class="re_password" placeholder="потверждения пароля">')
+                    //         document.querySelector("body").insertAdjacentHTML("beforeend",'<input type="text" class="key" placeholder="код с почты">')
+                    //         ajax("/php/mail.php", "GET", {password:random_key, email:login, name:name})
+                    //         state += 1;
+                    //     }
+                    // })
+
+                    document.querySelectorAll("input").forEach((e)=>{e.remove()})
+                    document.querySelector("body").insertAdjacentHTML("beforeend",'<input type="password" class="password" placeholder="пароль">')
+                    document.querySelector("body").insertAdjacentHTML("beforeend",'<input type="password" class="re_password" placeholder="потверждения пароля">')
+                    document.querySelector("body").insertAdjacentHTML("beforeend",'<input type="text" class="key" placeholder="код с почты">')
+                    state += 1;
                 }
             }
         }
-        if (state == 2){
-            password = $(".password").val()
-            re_password = $(".re_password").val()
-            key = $(".key").val()
+    }
+    if (state == 2){
+        password = document.querySelector(".password").value
+        re_password = document.querySelector(".re_password").value
+        key = document.querySelector(".key").value
 
-            if(password == ''){
+        if(password == ''){
+        }
+        else{
+            if(re_password == ''){
             }
             else{
-                if(re_password == ''){
-                }
-                else{
-                    if (random_key == key){
-                        $.ajax({
-                            type: "GET",
-                            url: "/php/register.php",
-                            data: {email:login, password:password, name:name, surname:sb_name}
-                        })
-                        window.location.href = "/html/login.html"
-                    }
+                if (random_key == key){
+                    ajax("/serverScripts/register.mjs", "GET", {email:login, password:password, name:name, surname:sb_name})
+                    window.location.href = "/html/login.html"
                 }
             }
         }
-    })
+    }
 })

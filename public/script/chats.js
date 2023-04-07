@@ -1,24 +1,25 @@
-$(document).ready(function(){
-    $.ajax({
-        type: "GET",
-        url: "/php/chats.php"
-    }).done(function(data){
-        $("body").append("<ul>"+data+"</ul>")
-    })
+import {ajax} from "./modul/ajax.js"
 
-    $(document).on("click", function(e){
-        var chat_id = $(e.target).attr("class");
+
+ajax("/php/chats.php", "GET").then(data=>{
+    document.querySelector("body").insertAdjacentHTML("afterend", data)
+})
+
+document.addEventListener('click', function (e) {
+    const target = e.target.closest('button');
+    if (!target) return;
+
+    else{
+        console.log(1);
+        let chat_id = e.target.className;
         if (typeof chat_id !== 'undefined') {
-            $.ajax({
-                type: "GET",
-                url: "/php/rederect_chat.php",
-                data: {id:chat_id}
-            }).done(function(data){
+            ajax("/php/rederect_chat.php", "GET", {id:chat_id}).then(()=>{
                 window.location.href = "/html/message.html"
             })
+            event_()
         }
         else{
-
+    
         }
-    });
-})
+    }
+});

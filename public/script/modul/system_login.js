@@ -1,10 +1,10 @@
-$.ajax({
-    type: "GET",
-    url: __dirname+"/php/system_login.php",
-  }).done(function( data ) {
-    if (data == 0){
-        window.location.href = "/html/login.html"
+import {ajax} from "./ajax.mjs"
+
+ajax("/servScripts/system_login.mjs", "GET").then(data=>{
+    if (data["response"] == 0){
+       window.location.href = "/html/login.html"
+       console.log("хуй тебе, а не вход");
     }
-    if(data == 1){
+    if(data["response"] == 1){
     }
-  });
+});
