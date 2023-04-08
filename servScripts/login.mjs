@@ -33,8 +33,8 @@
 import * as tool from "./modul/serverTool.mjs"
 
 export function repo(req, res){
-  const user = tool.getParm(req, "user")
-  const password = tool.getParm(req, "password")
+  const user = req.query["user"]
+  const password = req.query["password"]
 
   const db = new tool.DB()
   db.getFromDBByAttribute("users", `login ${user}`).then(userFind=>{
@@ -43,10 +43,9 @@ export function repo(req, res){
     }
     else{
       if (userFind[0][0]["password"] == password){
-        const cokkies = new tool.Cokkies(req, res)
-        cokkies.setCokkie("id", userFind[0][0]["id_user"] )
-        cokkies.setCokkie("login", user)
-        res.send({rep:1})
+        res.setCokkie("id", userFind[0][0]["id_user"] )
+        res.setCokkie("login", user);
+        res.send({rep:1});
       }
       else{
         res.send({rep:0})

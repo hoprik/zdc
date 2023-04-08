@@ -20,8 +20,6 @@ app.get("*", (req, res)=>{
     res.sendFile(__dirname+"\\index.html");
     }
     if (url.search("servScripts") != -1){
-        // res.cookie("hoprik", null)
-        // console.log(req.cookies);
         ajaxCLIENT(url, req, res)
     }
 })

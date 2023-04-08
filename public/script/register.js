@@ -26,19 +26,19 @@ document.querySelector(".continued").addEventListener("click",()=>{
                 if(sb_name == ''){
                 }
                 else{
-                    // ajax("/php/cheak_email.php", "GET", {email:login}).then(data=>{
-                    //     if (data == 0){
-                    //         alert("такое email уже есть");
-                    //     }
-                    //     if(data == 1){
-                    //         document.querySelectorAll("input").forEach((e)=>{e.remove()})
-                    //         document.querySelector("body").insertAdjacentHTML("beforeend",'<input type="password" class="password" placeholder="пароль">')
-                    //         document.querySelector("body").insertAdjacentHTML("beforeend",'<input type="password" class="re_password" placeholder="потверждения пароля">')
-                    //         document.querySelector("body").insertAdjacentHTML("beforeend",'<input type="text" class="key" placeholder="код с почты">')
-                    //         ajax("/php/mail.php", "GET", {password:random_key, email:login, name:name})
-                    //         state += 1;
-                    //     }
-                    // })
+                    ajax("/php/cheak_email.php", "GET", {email:login}).then(data=>{
+                        if (data == 0){
+                            alert("такое email уже есть");
+                        }
+                        if(data == 1){
+                            document.querySelectorAll("input").forEach((e)=>{e.remove()})
+                            document.querySelector("body").insertAdjacentHTML("beforeend",'<input type="password" class="password" placeholder="пароль">')
+                            document.querySelector("body").insertAdjacentHTML("beforeend",'<input type="password" class="re_password" placeholder="потверждения пароля">')
+                            document.querySelector("body").insertAdjacentHTML("beforeend",'<input type="text" class="key" placeholder="код с почты">')
+                            ajax("/php/mail.php", "GET", {password:random_key, email:login, name:name})
+                            state += 1;
+                        }
+                    })
 
                     document.querySelectorAll("input").forEach((e)=>{e.remove()})
                     document.querySelector("body").insertAdjacentHTML("beforeend",'<input type="password" class="password" placeholder="пароль">')

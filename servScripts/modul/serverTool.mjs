@@ -40,44 +40,6 @@ export class DB{
   }
 }
 
-export function getParm(req, item) {
-  const url = req.originalUrl.split("?")
-  const parms = url[1].split("&")
-  let data;
-  parms.forEach(parm => {
-    const parmItem = parm.split("=")
-    if (parmItem[0] == item){
-      data = parmItem[1]
-    }
-  });
-  return data;
-}
-
-export class Cokkies{
-  req;
-  res;
-  constructor(req,res){
-    this.req = req;
-    this.res = res;
-  }
-
-  getCokkie(name){
-    return this.req.cokkies[name]
-  }
-
-  getCokkies(){
-    return this.req.cokkies
-  }
-
-  setCokkie(name, item){
-    this.res.cokkie(name, item)
-  }
-
-  setCokkieTime(name, item, seconds){
-    this.res.cokkie(name, item, {maxAge: seconds*10})
-  }
-}
-
 // export class Mail{
 //   transporter;
 //   constructor(){

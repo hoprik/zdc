@@ -26,7 +26,9 @@ export function repo(req, res){
     // new tool.Cokkies(req, res).setCokkie("id", 1)
     // const id = new tool.Cokkies(req, res).getCokkie("id")
 
-    const id = 1
+    //res.cookie("id", "1").send('cookie set');
+    const id = req.cookies["id"];
+    console.log(id);
 
     db.getFromDBByAttribute("chat", `member1=${id} OR member2=${id} OR member3=${id} OR member4=${id} OR member5=${id} OR member6=${id} OR member7=${id} OR member8=${id} OR member9=${id} OR member10=${id}`).then(chats=>{
         chats[0].forEach(chat => {
