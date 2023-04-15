@@ -2,7 +2,6 @@ import * as tool from "./modul/serverTool.mjs"
 
 export function repo(req, res){
     const db = new tool.DB() // иницализируем дб
-    console.log(req.query["id"]);
 
     db.getFromDB("users").then(user=>{ //получение пользователей
         const userid = user[0].length + 1 //юзер id

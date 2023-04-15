@@ -1,20 +1,10 @@
-import {ajax} from "./modul/ajax.js";
+import {ajax} from "./modul/ajax.mjs";
 
-let data;
-data = "name"
-ajax("/php/profile.php", "GET", {data: data}).then(data=>{
-    document.querySelector('.name').innerHTML = data
-    document.querySelector('head').insertAdjacentHTML("afterend",'<title>профиль: '+data+'</title>')
-})   
-data = "surname"
-ajax("/php/profile.php", "GET", {data: data}).then(data=>{
-    document.querySelector('.surname').innerHTML = data
-})   
-data = "status"
-ajax("/php/profile.php", "GET", {data: data}).then(data=>{
-    document.querySelector('.status').innerHTML = data
-})   
-data = "avatar"
-ajax("/php/profile.php", "GET", {data: data}).then(data=>{
-    document.querySelector('body').insertAdjacentHTML("afterbegin",'<img src="'+data+'" width="100" height="100">')
+ajax("/servScripts/profile.mjs", "GET").then(data=>{
+    const item = data.split(",")
+    document.querySelector('.name').innerHTML = item[0]
+    document.querySelector('head').insertAdjacentHTML("afterend",`<title>профиль:${item[0]}</title>`)
+    document.querySelector('.surname').innerHTML = item[1]
+    document.querySelector('.status').innerHTML = item[2]
+    document.querySelector('body').insertAdjacentHTML("afterbegin",`<img src="${item[3]}" width="100" height="100">`)
 })   

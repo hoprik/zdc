@@ -1,7 +1,7 @@
-import {ajax} from "./modul/ajax.js"
+import {ajax} from "./modul/ajax.mjs"
 
 
-ajax("/php/chats.php", "GET").then(data=>{
+ajax("/servScripts/chats.mjs", "GET").then(data=>{
     document.querySelector("body").insertAdjacentHTML("afterend", data)
 })
 
@@ -13,7 +13,7 @@ document.addEventListener('click', function (e) {
         console.log(1);
         let chat_id = e.target.className;
         if (typeof chat_id !== 'undefined') {
-            ajax("/php/rederect_chat.php", "GET", {id:chat_id}).then(()=>{
+            ajax("/servScripts/rederect_chat.mjs", "GET", {id:chat_id}).then(()=>{
                 window.location.href = "/html/message.html"
             })
             event_()

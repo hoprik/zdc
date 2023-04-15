@@ -20,5 +20,6 @@ export function repo(req, res){
 
         db.insertToDB("chat", "id, name, member1, member2, member3, member4, member5, member6, member7, member8, member9, member10", `'${chat_id}', '${name}', '${member1}', '${member2}', '${member3}', '${member4}', '${member5}', '${member6}', '${member7}', '${member8}', '${member9}', '${member10}'`)
 
+        res.send("1")
     })
 }

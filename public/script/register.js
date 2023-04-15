@@ -7,7 +7,8 @@ let password
 let re_password
 let key
 let random = Math.random() * 1000000
-let random_key = Math.round(random)
+// let random_key = Math.round(random)
+let random_key = 1
 let state = 1;
 
 document.querySelector(".continued").addEventListener("click",()=>{
@@ -26,7 +27,7 @@ document.querySelector(".continued").addEventListener("click",()=>{
                 if(sb_name == ''){
                 }
                 else{
-                    ajax("/php/cheak_email.php", "GET", {email:login}).then(data=>{
+                    ajax("/servScripts/chea_email.mjs", "GET", {email:login}).then(data=>{
                         if (data == 0){
                             alert("такое email уже есть");
                         }
@@ -35,7 +36,7 @@ document.querySelector(".continued").addEventListener("click",()=>{
                             document.querySelector("body").insertAdjacentHTML("beforeend",'<input type="password" class="password" placeholder="пароль">')
                             document.querySelector("body").insertAdjacentHTML("beforeend",'<input type="password" class="re_password" placeholder="потверждения пароля">')
                             document.querySelector("body").insertAdjacentHTML("beforeend",'<input type="text" class="key" placeholder="код с почты">')
-                            ajax("/php/mail.php", "GET", {password:random_key, email:login, name:name})
+                            //ajax("/php/mail.php", "GET", {password:random_key, email:login, name:name})
                             state += 1;
                         }
                     })
@@ -61,7 +62,7 @@ document.querySelector(".continued").addEventListener("click",()=>{
             }
             else{
                 if (random_key == key){
-                    ajax("/serverScripts/register.mjs", "GET", {email:login, password:password, name:name, surname:sb_name})
+                    ajax("/servScripts/register.mjs", "GET", {email:login, password:password, name:name, surname:sb_name})
                     window.location.href = "/html/login.html"
                 }
             }

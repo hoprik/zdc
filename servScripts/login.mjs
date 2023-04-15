@@ -37,18 +37,19 @@ export function repo(req, res){
   const password = req.query["password"]
 
   const db = new tool.DB()
-  db.getFromDBByAttribute("users", `login ${user}`).then(userFind=>{
+  db.getFromDBByAttribute("users", `login="${user}"`).then(userFind=>{
     if (userFind[0].length == 0){
       res.send({rep:0})
     }
     else{
       if (userFind[0][0]["password"] == password){
-        res.setCokkie("id", userFind[0][0]["id_user"] )
-        res.setCokkie("login", user);
-        res.send({rep:1});
+        res.cookie("id", userFind[0][0]["id_user"] )
+        res.cookie("login", user);
+
+        res.send(200,1);
       }
       else{
-        res.send({rep:0})
+        res.send(200,0)
       }
     }
   })

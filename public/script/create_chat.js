@@ -1,4 +1,4 @@
-import { ajax } from "./modul/ajax.js"
+import { ajax } from "./modul/ajax.mjs"
 
 let membercount = 2
 let member2,member3,member4,member5,member6,member7,member8,member9,member10
@@ -128,6 +128,6 @@ document.querySelector(".create").addEventListener("click", ()=>{
             break;
     }
     let name = document.querySelector(".name").value
-    ajax("/php/create_chat.php", "GET", {name:name, member2:member2, member3:member3, member4:member4, member5:member5, member6:member6, member7:member7, member8:member8, member9:member9, member10:member10}).then(data=>{
+    ajax("/servScripts/create_chat.mjs", "GET", {name:name, member2:member2, member3:member3, member4:member4, member5:member5, member6:member6, member7:member7, member8:member8, member9:member9, member10:member10}).then(data=>{
         window.location.href="chats.html"
     })})

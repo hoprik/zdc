@@ -18,12 +18,11 @@ document.querySelector(".log").addEventListener("click",()=>{
         if (password == ""){
         }
         else{
-                ajax("/php/login.php", "GET", {user: login, password:password}).then(data=>{
+                ajax("/servScripts/login.mjs", "GET", {user: login, password:password}).then(data=>{
                     if (data == 0){
                         alert("неправильный логин или пароль");
                     }
                     if(data == 1){
-                        localStorage.setItem("login", login)
                         window.location.href = "/html/news.html"
                     }
                 });
