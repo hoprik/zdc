@@ -11,9 +11,11 @@ export function repo(req, res){
             const member1 = req.query["member"]
     
     
-            db.insertToDB("user_chat_id", "user_id, chat_id, user_chat_id", `'${chat_user_id}', '${member1}', '${chat_id}'`)
+            db.insertToDB("user_chat_id", "user_id, chat_id, user_chat_id", `'${member1}', '${chat_id}', '${chat_user_id}'`)
             
             res.send("1")
         })
+
+
     })
 }

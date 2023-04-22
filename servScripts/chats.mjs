@@ -5,13 +5,17 @@ export function repo(req, res){
 
     const id = req.cookies["id"];
 
-    db.getFromDBByAttribute("chat", `member1=${id} OR member2=${id} OR member3=${id} OR member4=${id} OR member5=${id} OR member6=${id} OR member7=${id} OR member8=${id} OR member9=${id} OR member10=${id}`).then(chats=>{
-        let buttons = []
+    db.getFromDBByAttribute("user_chat_id", `${id}`).then(chats=>{
         chats[0].forEach(chat => {
-            console.log(buttons);
-            buttons.push(`<button class="${chat["id"]}">${chat["name"]}</button> <br><br>`)
+            db.getFromDBByAttribute("chat", `${chat["chat_id"]}`).then(infochat=>{
+                let buttons = []
+                chats[0].forEach(chat => {
+                    console.log(buttons);
+                    buttons.push(`<button class="${chat["user_chat_id"]}">${infochat[0][0]["name"]}</button> <br><br>`)
+                });  
+                res.send(buttons)   
+            })
         });  
-        res.send(buttons)   
     })
 
 }
