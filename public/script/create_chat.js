@@ -18,11 +18,14 @@ document.body.addEventListener('click', function (event) {
 
 document.querySelector(".create").addEventListener("click", ()=>{
     let name = document.querySelector(".name").value
+    let memberStart = ""
     document.querySelectorAll(".member").forEach(member=>{
-        console.log(member);
-        ajax("/servScripts/userAddFromAddChat.mjs", "GET", {member:member.value}).then(e=>{
-            ajax("/servScripts/create_chat.mjs", "GET", {name:name}).then(data=>{
-                window.location.href="chats.html"
-            })})
+        memberStart += member.value+"|";
+    })
+    console.log(memberStart);
+    ajax("/servScripts/userAddFromAddChat.mjs", "GET", {member:memberStart}).then(e=>{
+        ajax("/servScripts/create_chat.mjs", "GET", {name:name}).then(data=>{
+            window.location.href="chats.html"
         })
     })
+})
